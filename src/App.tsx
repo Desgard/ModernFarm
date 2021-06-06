@@ -1,45 +1,32 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { FarmNavbar } from "./Components/FarmNavbar";
+import { Container } from "@material-ui/core";
+import { FarmProfit } from "./Views/FarmProfit";
+import { Web3ReactProvider } from "@web3-react/core";
+import { ethers } from "ethers";
+
+const getLibrary = (provider: any) => {
+	return new ethers.providers.Web3Provider(provider);
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+	return (
+		<div className="App">
+			<Web3ReactProvider getLibrary={getLibrary}>
+				<FarmNavbar />
+				<Container
+					maxWidth="xl"
+					style={{
+						paddingTop: "30px",
+					}}
+				>
+					<FarmProfit />
+				</Container>
+			</Web3ReactProvider>
+		</div>
+	);
 }
 
-export default App
+export default App;
